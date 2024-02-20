@@ -44,7 +44,7 @@ import {
           password
         );
   
-        console.log(response);
+        // console.log(response);
         alert("Check your emails!");
       } catch (error: any) {
         console.log(error);

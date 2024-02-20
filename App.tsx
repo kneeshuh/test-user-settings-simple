@@ -9,17 +9,30 @@ import Profile from './screens/Profile';
 import Login from './screens/Login';
 import { useState, useEffect } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth'
+import EditProfileScreen from './screens/EditProfile';
 
 const Stack = createNativeStackNavigator()
 
 const Tab = createBottomTabNavigator()
 
-const HomeStack = () => {
+const HomeTab = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
+  )
+
+}
+
+const HomeStack = () => {
+  return (
+
+  <Stack.Navigator>
+    <Stack.Screen name='Home' component={HomeTab} />
+    <Stack.Screen name='Profile' component={Profile} />
+    <Stack.Screen name='EditProfile' component={EditProfileScreen} />
+  </Stack.Navigator>
   )
 }
 
@@ -35,7 +48,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
         {user ? (
           <Stack.Screen name="HomeStack" component={HomeStack} />
         ) : (
