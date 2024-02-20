@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, TextInput, Button } from "react-native";
 import { FIREBASE_AUTH } from "../FirebaseConfig";
-import { updateProfile } from "firebase/auth";
+import { updateEmail, updateProfile } from "firebase/auth";
 
 const EditProfileScreen = () => {
   const [name, setName] = useState(FIREBASE_AUTH.currentUser.displayName);
-  console.log(name);
+  const [email, setEmail] = useState(FIREBASE_AUTH.currentUser.email);
 
   const handleSubmitChanges = () => {
     updateProfile(FIREBASE_AUTH.currentUser, {
       displayName: name,
     });
+    updateEmail(FIREBASE_AUTH.currentUser, email);
     console.log(FIREBASE_AUTH.currentUser.displayName);
+    console.log(FIREBASE_AUTH.currentUser.email);
   };
   //   console.log(FIREBASE_AUTH.currentUser);
   return (
@@ -37,7 +39,14 @@ const EditProfileScreen = () => {
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.infoLabel}>Email:</Text>
-        <Text style={styles.infoValue}>{FIREBASE_AUTH.currentUser.email}</Text>
+        <View>
+          <TextInput
+            style={styles.infoValue}
+            onChangeText={(value) => setEmail(value)}
+          >
+            {FIREBASE_AUTH.currentUser.email}
+          </TextInput>
+        </View>
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.infoLabel}>Location:</Text>
